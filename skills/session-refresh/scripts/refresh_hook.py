@@ -23,7 +23,9 @@ def main(argv=None):
         if gauge["metadata_for"](payload.get("session_id"), config) is None:
             return 0
         folder = Path(config["handoff_dir"])
-        candidates = [p for p in folder.glob("HANDOFF-*.md") if p.is_file() and not p.is_symlink()]
+        # Only this session's own handoffs (named HANDOFF-<session key>-...), never another session's.
+        key = gauge["session_key"](payload.get("session_id"))
+        candidates = [p for p in folder.glob(f"HANDOFF-{key}-*.md") if p.is_file() and not p.is_symlink()]
         latest = max(candidates, key=lambda p: p.stat().st_mtime) if candidates else None
         handoff = (f"{latest} (modified {gauge['datetime'].fromtimestamp(latest.stat().st_mtime).isoformat()})"
                    if latest else f"MISSING in {folder}; report missing memory, never invent it")

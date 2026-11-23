@@ -34,7 +34,7 @@ Fill it in field by field:
 | Field | What to ask |
 |---|---|
 | `owner_emails` | Every address you send from. |
-| `timezone` | Your IANA time zone, for example `America/Los_Angeles`. Daylight saving is handled for you. (Older configs with `utc_offset_hours` still work but drift an hour twice a year.) |
+| `timezone` | Your IANA time zone, for example `America/Los_Angeles`. Daylight saving is handled for you. On Windows, run `pip install tzdata` once so Python has the time zone data; triage stops with a clear message if the zone cannot load. (Older configs with `utc_offset_hours` still work but drift an hour twice a year.) |
 | `followup_business_days` | How long before a quiet person gets a nudge? Default 2. |
 | `vip.tier1` | Who must never wait? (broker, lender partner, top clients in escrow). These trigger a text. |
 | `vip.tier2` | Who matters this week? (active buyers and sellers, escrow, title). Always in the digest. |

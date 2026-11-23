@@ -35,8 +35,6 @@ Or by hand: copy this `inbox-triage` folder into `~/.claude/skills/` so you have
 - `SETUP.md`
 - `SKILL.md`
 - `config/triage-config.example.json`
-- `scripts/__pycache__/run_headless.cpython-312.pyc`
-- `scripts/__pycache__/triage.cpython-312.pyc`
 - `scripts/run_headless.py`
 - `scripts/triage.py`
 - `tests/test_triage.py`

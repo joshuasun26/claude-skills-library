@@ -21,7 +21,10 @@ def cmds(name):
 
 def files_of(name):
     base = ROOT / "skills" / name
-    return sorted(p.relative_to(base).as_posix() for p in base.rglob("*") if p.is_file() and p.name != "README.md")
+    skip = {"__pycache__", "state", ".DS_Store", "Thumbs.db"}
+    return sorted(p.relative_to(base).as_posix() for p in base.rglob("*")
+                  if p.is_file() and p.name != "README.md" and p.suffix != ".pyc"
+                  and not skip.intersection(p.relative_to(base).parts))
 
 
 def skill_readme(s):

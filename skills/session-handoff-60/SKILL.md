@@ -14,7 +14,7 @@ A long Claude Code session slowly fills its context window. Past about 60%, answ
    - write `HANDOFF-YYYY-MM-DD-HHMM.md`: work in flight, background jobs and where results land, scheduled jobs to recreate, decisions waiting on you, what was sent, rules learned
    - start a fresh session named like `Main 11-7 2PM` that reads that file and carries on
    - pin the new session and unpin the old one
-   - if starting a session is blocked (for example from a phone), schedule a one-time task a minute out that opens it
+   - if starting a session is refused (for example from a phone), the handoff file stays saved and the old session keeps working; start the new one from your desk with a prompt pointing at that file
 3. A Stop hook holds the turn open once, so the session cannot go idle without doing the handoff.
 4. A status line shows `Context 42%` at the bottom of the screen.
 

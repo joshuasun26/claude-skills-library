@@ -53,8 +53,8 @@ def tz_of(cfg):
         try:
             from zoneinfo import ZoneInfo
             return ZoneInfo(name)
-        except Exception:
-            pass
+        except Exception as exc:
+            raise SystemExit(f"Could not load time zone {name!r} ({exc}). On Windows run: pip install tzdata")
     return dt.timezone(dt.timedelta(hours=cfg.get("utc_offset_hours", -8)))
 
 

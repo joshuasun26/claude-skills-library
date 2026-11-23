@@ -203,10 +203,18 @@
       const key = [skill.name, other].sort().join("|");
       if (pairs.has(key)) continue;
       pairs.add(key);
-      const note = element("p", "", "Choose one session routine: ");
-      note.append(element("code", "", skill.name), " or ", element("code", "", other), ".");
+      const note = element("p", "", "Pick one session routine, not both: ");
+      note.append(element("code", "", "session-refresh"),
+        " keeps one main session all day and works well from your phone; ",
+        element("code", "", "session-handoff-60"),
+        " starts a fresh session each time context reaches 60%. If unsure, start with session-refresh.");
       byId("choice").append(note);
     }
+  }
+
+  if (starters.some(skill => skill.name === "mac-mini-station-setup")) {
+    byId("choice").append(element("p", "", "The station setup guide is for Macs. On Windows, keep the laptop plugged in, "
+      + "turn off sleep in Settings, System, Power, and install the other starters."));
   }
 
   addChip("", "All skills", skills.length);

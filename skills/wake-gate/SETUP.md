@@ -22,7 +22,7 @@ Asking an AI agent to "check my inbox every 10 minutes" spends model usage on ev
    Then run `python setup_gmail_oauth.py --creds-file path/to/client_secret.json`, click Continue past "Google hasn't verified this app" (normal for your own private app), then Allow. It saves `~/.wake-gate-gmail.json`. Treat that file like a password.
 4. Test without running anything: `python wake_gate.py --config watchers.json --dry-run`
 5. Schedule it every 1 to 10 minutes:
-   - **Windows:** Task Scheduler, daily trigger repeating every 10 minutes, action `pythonw wake_gate.py --config watchers.json`
+   - **Windows:** Task Scheduler, daily trigger repeating every 10 minutes. Action: Program/script = the full path to `pythonw.exe` (run `where pythonw` to find it). Add arguments = `"C:\full\path\to\wake-gate\wake_gate.py" --config "C:\full\path\to\wake-gate\watchers.json"`. Start in = the wake-gate folder. Right-click the task, Run, and check that the log updated before you call it done.
    - **Mac/Linux:** `*/10 * * * * python3 /path/to/wake_gate.py --config /path/to/watchers.json`
 
 ## How it behaves

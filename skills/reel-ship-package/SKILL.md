@@ -7,7 +7,7 @@ description: Pre-delivery checklist for any finished short vertical video (talki
 
 A reel is not done when the mp4 renders. It is done when the owner can post it without doing any more work. Finished renders that sit on disk with no caption, no thumbnail and no music are the most common way good content never goes out.
 
-**The hard line:** this skill ends at the owner's own review channel (their phone, a shared folder, a private message to themselves). It never posts to a social account, never schedules and never publishes. The owner releases it in a separate step.
+**The hard line:** this skill builds the package as local files and reports their paths in chat. Delivering it anywhere, even to the owner's own phone or a shared folder, is a separate step that needs the owner's explicit OK on the destination and the exact files. Without that OK, stop at the file paths. It never posts to a social account, never schedules and never publishes.
 
 ## The checklist (all eight before it counts as shipped)
 
@@ -41,7 +41,8 @@ A reel is not done when the mp4 renders. It is done when the owner can post it w
 ### 7. Readability of stills
 - If the package includes slides, end cards or cover images, run the `carousel-readability` skill on them.
 
-### 8. Delivery and read-back
+### 8. Delivery and read-back (only after the owner approves the destination and files)
+- Without that approval, skip this section and report the local file paths instead.
 - Send a short summary first (what this is, what is included, what is still open), then the video, the thumbnail and the caption as separate deliveries, so one failure does not hide the rest.
 - Read the actual result of each delivery before saying it arrived. The absence of an error is not proof of delivery.
 
