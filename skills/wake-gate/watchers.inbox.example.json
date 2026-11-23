@@ -1,0 +1,12 @@
+{
+  "_readme": "inbox-triage example: run inbox triage only when real mail arrives. Copy to watchers.json and edit the query.",
+  "watchers": [
+    {
+      "name": "inbox-new-mail",
+      "type": "gmail",
+      "query": "in:inbox is:unread -category:promotions -category:social newer_than:1d",
+      "on_hit": "python ~/.claude/skills/inbox-triage/scripts/run_headless.py --config ~/.inbox-triage/config.json",
+      "active_hours": "07-21"
+    }
+  ]
+}

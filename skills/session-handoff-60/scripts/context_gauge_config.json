@@ -1,0 +1,11 @@
+{
+  "threshold_percent": 60,
+  "repeat_percent": 10,
+  "model_windows": {
+    "claude-opus-5-5": 1000000
+  },
+  "handoff_dir": "C:/Users/YOUR-NAME/handoffs",
+  "main_session_name": "Main",
+  "main_session_title_regex": "^Main \\d{1,2}-\\d{1,2}\\b",
+  "all_sessions_are_main": false
+}

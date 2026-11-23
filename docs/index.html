@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Browse Claude Code skills, choose an always-on setup, and copy the install commands for your machine.">
+  <title>Claude Code Skills Library</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./styles.css">
+  <script defer src="./catalog.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#catalog">Skip to catalog</a>
+  <header class="mast wrap">
+    <a class="brand" href="#top"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>Skills Library</a>
+    <nav aria-label="Page"><a href="#catalog">Catalog</a><a href="#install">Install</a></nav>
+  </header>
+  <main id="top" class="wrap">
+    <section class="hero" aria-labelledby="title">
+      <div class="intro">
+        <p class="kicker">A field guide to Claude Code</p>
+        <h1 id="title">Claude Code<br><em>Skills Library</em></h1>
+        <p class="lead">Claude Code skills you can copy into <code>~/.claude/skills/</code>.</p>
+        <p class="trust">Drafts first. Nothing sends on its own.</p>
+        <a class="text-link" id="repo" href="https://github.com/joshuasun26/claude-skills-library">View on GitHub <span aria-hidden="true">↗</span></a>
+        <div class="command" id="hero-clone"></div>
+      </div>
+      <nav class="shelf" aria-label="Browse by category">
+        <div class="shelf-label"><span>Category index</span><span id="shelf-count"></span></div>
+        <div id="books" class="books"></div>
+      </nav>
+    </section>
+    <section class="starter split" aria-labelledby="start-title">
+      <div><p class="kicker">Start here</p><h2 id="start-title">Setting up an<br>always-on machine?</h2>
+        <div id="choice" class="choice"></div>
+      </div>
+      <div class="starter-list" id="starter-list"></div>
+    </section>
+    <section id="catalog" aria-labelledby="catalog-title">
+      <div class="catalog-head"><h2 id="catalog-title">The catalog</h2>
+        <label class="search"><span class="lens" aria-hidden="true"></span><span class="sr">Search skills</span><input type="search" id="query" placeholder="Search skills"></label>
+      </div>
+      <div class="chips" id="filters" role="group" aria-label="Filter by category"></div>
+      <p class="count" id="count" role="status"></p>
+      <div id="cards"></div>
+      <div id="empty" hidden><h3>No matching skills</h3><p>Try another word or browse the full catalog.</p><button type="button" id="reset">Show all skills</button></div>
+      <noscript>Enable JavaScript to browse the catalog or use the GitHub link above.</noscript>
+    </section>
+    <section class="install split" id="install" aria-labelledby="install-title">
+      <div><h2 id="install-title">Install your skills</h2>
+        <p>Choose just the skills you need. The installer backs up existing skills to <code>~/.claude/skills-backups/</code> and leaves your settings untouched.</p>
+      </div>
+      <div class="steps">
+        <h3>Clone the library</h3><div class="command" id="install-clone"></div>
+        <h3>Install your picks</h3><p>Open the downloaded folder with <code>cd claude-skills-library</code>. Replace <code>a b</code> with the names of the skills you want.</p>
+        <div id="local-install"></div>
+        <h3>Or copy a skill by hand</h3><p>Copy its folder from <code>skills/</code> into <code>~/.claude/skills/</code>, keeping the folder name.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap"><div><strong>Made by Joshua Sun with Claude Code</strong><p>MIT license, except <code>gauntlet-loop</code>, licensed under CC BY 4.0.</p></div>
+    <p>Last updated <time id="updated"></time></p>
+  </footer>
+  <p class="sr" id="copy-status" role="status"></p>
+</body>
+</html>

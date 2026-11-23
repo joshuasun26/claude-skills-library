@@ -1,0 +1,40 @@
+{
+  "_readme": "Copy to watchers.json. Each watcher checks for free; on_hit runs only when something new shows up.",
+  "watchers": [
+    {
+      "name": "meeting-recaps",
+      "type": "gmail",
+      "query": "from:(zoom OR fireflies OR otter) subject:(summary OR recap) newer_than:1d",
+      "on_hit": "claude -p \"Draft a follow-up email for each new meeting summary listed in the file at $WAKE_GATE_ITEMS. Drafts only, do not send.\"",
+      "active_hours": "07-21"
+    },
+    {
+      "name": "invoices",
+      "type": "gmail",
+      "query": "subject:(invoice OR receipt) has:attachment newer_than:2d",
+      "on_hit": "claude -p \"Add each new invoice email listed in $WAKE_GATE_ITEMS to invoices.csv: date, sender, subject. Do not reply to anything.\""
+    },
+    {
+      "name": "scanned-docs",
+      "type": "folder",
+      "path": "~/Documents/Scans",
+      "pattern": "*.pdf",
+      "on_hit": "claude -p \"Summarize each new PDF listed in $WAKE_GATE_ITEMS into 5 bullets and save next to the file.\""
+    },
+    {
+      "name": "pricing-page",
+      "type": "url",
+      "url": "https://example.com/pricing",
+      "on_hit": "echo The page changed",
+      "enabled": false
+    },
+    {
+      "name": "now-hiring",
+      "type": "url",
+      "url": "https://example.com/careers",
+      "contains": "AI automation",
+      "on_hit": "echo The phrase showed up",
+      "enabled": false
+    }
+  ]
+}

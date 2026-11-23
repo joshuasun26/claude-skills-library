@@ -1,0 +1,66 @@
+{
+  "_readme": "Copy to ~/.inbox-triage/config.json and fill it in. Every field is explained in SETUP.md.",
+  "assistant_name": "Inbox",
+
+  "run": {
+    "model": "claude-opus-5-5",
+    "effort": "medium",
+    "_how": "Used by scripts/run_headless.py (OS scheduler). In the Claude app, pick the model and effort in the session before starting; app scheduled tasks cannot pin a model. See SETUP.md step 4.",
+    "timeout_minutes": 25,
+    "log_dir": "~/.inbox-triage/runs",
+    "cwd": "~"
+  },
+  "owner_emails": ["you@example.com", "you@brokerage.example"],
+  "timezone": "America/Los_Angeles",
+  "followup_business_days": 2,
+  "waiting_window_days": 21,
+  "holidays": ["2026-11-26", "2026-12-25"],
+  "cc_replies_count": true,
+
+  "vip": {
+    "tier1": [
+      {"name": "Managing broker", "emails": ["broker@brokerage.example"]},
+      {"name": "Lender partner", "emails": ["lo@lender.example", "@lender.example"]}
+    ],
+    "tier2": [
+      {"name": "Active clients", "emails": ["buyer.one@example.com"]},
+      {"name": "Escrow and title", "emails": ["@escrow.example", "@title.example"]}
+    ],
+    "tier3": [
+      {"name": "Sphere and referral partners", "emails": []}
+    ]
+  },
+
+  "counsel": [],
+  "_counsel_note": "Optional: email addresses or @domains of your attorneys or advisors. Unanswered replies from them resurface daily. Law-firm domains and names ending in Esq. are detected automatically.",
+  "suppress": [],
+  "never_nudge": ["@brokerage.example"],
+
+  "noise": {
+    "from_patterns": ["noreply@*", "no-reply@*", "*@notifications.*", "*@mail.zillow.com",
+                      "*@substack.com", "*@calendly.com"],
+    "labels": ["CATEGORY_PROMOTIONS", "CATEGORY_SOCIAL", "CATEGORY_FORUMS"]
+  },
+
+  "notify": {
+    "channel": "none",
+    "_channel_options": "none (digest.txt only) | sms | telegram (only if you have a texting tool connected)",
+    "sms_max_chars": 900,
+    "urgent_only_tier1": true,
+    "quiet_hours": ["21:00", "07:00"]
+  },
+
+  "voice": {
+    "greeting": "Hi {first_name},",
+    "signoff": "Thanks,\n{owner_first_name}",
+    "tone": "warm, short, plain words, no exclamation stacks",
+    "banned_words": ["circling back", "just checking in", "per my last email", "honestly"],
+    "nudge_template": "Hi {first_name}, wanted to bump this up in case it got buried. {one_line_ask} No rush if you need a few more days."
+  },
+
+  "send_rules": {
+    "auto_send": false,
+    "_auto_send_note": "Leave false. The skill only drafts. Change only if you write your own rule list below and sign off on it.",
+    "rules": []
+  }
+}

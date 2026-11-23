@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.bak*
+state/
+.DS_Store
+Thumbs.db
+*.zip
+.env
+*.token
+*token*.json

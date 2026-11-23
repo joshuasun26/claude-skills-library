@@ -1,0 +1,14 @@
+{
+  "main_session_name": "Main",
+  "main_session_title_regex": "^Main (?P<month>\\d{1,2})-(?P<day>\\d{1,2})$",
+  "handoff_dir": "~/.claude/handoffs/main",
+  "startup_files": ["AGENTS.md", "CLAUDE.md"],
+  "auto_compaction_available": true,
+  "threshold_percent": 50,
+  "new_day_hour": 4,
+  "usage_max_age_seconds": 300,
+  "sessions_glob": {
+    "windows": "%APPDATA%/Claude/claude-code-sessions/*/*/local_*.json",
+    "macos": "~/Library/Application Support/Claude/claude-code-sessions/*/*/local_*.json"
+  }
+}

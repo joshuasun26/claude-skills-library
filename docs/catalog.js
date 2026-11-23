@@ -1,0 +1,528 @@
+window.SKILLS_CATALOG = {
+ "repo": "joshuasun26/claude-skills-library",
+ "updated": "2026-11-23",
+ "categories": [
+  {
+   "id": "always-on",
+   "label": "Always-on and sessions"
+  },
+  {
+   "id": "inbox",
+   "label": "Inbox and daily rhythm"
+  },
+  {
+   "id": "quality",
+   "label": "Quality gates"
+  },
+  {
+   "id": "content",
+   "label": "Content and video"
+  },
+  {
+   "id": "realtor",
+   "label": "Realtor and loan officer kit"
+  }
+ ],
+ "skills": [
+  {
+   "name": "session-handoff-60",
+   "title": "60% session handoff",
+   "category": "always-on",
+   "start_here": true,
+   "summary": "When your main Claude Code session hits 60% context, Claude writes a handoff file, opens a fresh session that carries on, and pins it.",
+   "for": "Anyone who keeps one main session open all day",
+   "when": "You have a long-running main chat that gets slow or forgetful by afternoon.",
+   "needs": [
+    "Claude Code desktop app",
+    "Python 3.9+"
+   ],
+   "customize": "Edit scripts/context_gauge_config.json: threshold, handoff folder, main session name.",
+   "conflicts": [
+    "session-refresh"
+   ],
+   "try": "Set up the 60% handoff for my main session called Main.",
+   "files": [
+    "SKILL.md",
+    "scripts/context_gauge.py",
+    "scripts/context_gauge_config.json"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- session-handoff-60",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) session-handoff-60",
+    "manual": "Copy skills/session-handoff-60/ into ~/.claude/skills/session-handoff-60/"
+   }
+  },
+  {
+   "name": "session-refresh",
+   "title": "Session refresh (compact in place)",
+   "category": "always-on",
+   "start_here": true,
+   "summary": "Keeps one visible main session all day. Claude compacts in place at about 30% of the window, re-reads your handoff, and starts one fresh dated session each morning.",
+   "for": "Always-on machines and people who drive Claude from their phone",
+   "when": "You want the main session to survive all day without new sessions piling up in the sidebar.",
+   "needs": [
+    "Claude Code",
+    "Python 3.9+",
+    "Desktop app for daily starts and pins"
+   ],
+   "customize": "Edit scripts/config.json and the autoCompactWindow value in settings. INSTALL-PROMPT.md walks Claude through it.",
+   "conflicts": [
+    "session-handoff-60"
+   ],
+   "try": "Read session-refresh/SKILL.md and INSTALL-PROMPT.md. Install it, back up my settings and show me the diff first.",
+   "files": [
+    "INSTALL-PROMPT.md",
+    "SKILL.md",
+    "scripts/config.json",
+    "scripts/context_gauge.py",
+    "scripts/refresh_hook.py"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- session-refresh",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) session-refresh",
+    "manual": "Copy skills/session-refresh/ into ~/.claude/skills/session-refresh/"
+   }
+  },
+  {
+   "name": "mac-mini-station-setup",
+   "title": "Always-on Mac station",
+   "category": "always-on",
+   "start_here": true,
+   "summary": "Walks you through turning a Mac into an always-on AI station one step at a time: never sleep, Remote Control, Chrome Remote Desktop, working folder, screenshot shortcut.",
+   "for": "Anyone setting up a home or office Mac that stays on",
+   "when": "You are setting up a machine Claude can work on while you are away.",
+   "needs": [
+    "macOS",
+    "Claude desktop app"
+   ],
+   "customize": "GUIDE.md is the printable checklist. Rename the example working folder to yours.",
+   "conflicts": [],
+   "try": "Walk me through the Mac mini setup.",
+   "files": [
+    "GUIDE.md",
+    "SKILL.md"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- mac-mini-station-setup",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) mac-mini-station-setup",
+    "manual": "Copy skills/mac-mini-station-setup/ into ~/.claude/skills/mac-mini-station-setup/"
+   }
+  },
+  {
+   "name": "wake-gate",
+   "title": "Wake gate",
+   "category": "always-on",
+   "start_here": false,
+   "summary": "A free script watches Gmail, a folder or a web page and only wakes an AI job when something new arrives, so you stop paying a model to poll.",
+   "for": "Anyone automating on incoming email, files or page changes",
+   "when": "You want a job to run on new email or new files without burning usage on empty checks.",
+   "needs": [
+    "Python 3.9+",
+    "Task Scheduler or cron",
+    "Google OAuth client for Gmail watchers"
+   ],
+   "customize": "Copy watchers.example.json to watchers.json and set one watcher per trigger.",
+   "conflicts": [],
+   "try": "Set up a wake gate that runs my triage only when a new email from my escrow officer arrives.",
+   "files": [
+    "SETUP.md",
+    "SKILL.md",
+    "setup_gmail_oauth.py",
+    "wake_gate.py",
+    "watchers.example.json",
+    "watchers.inbox.example.json"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- wake-gate",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) wake-gate",
+    "manual": "Copy skills/wake-gate/ into ~/.claude/skills/wake-gate/"
+   }
+  },
+  {
+   "name": "inbox-triage",
+   "title": "Inbox triage",
+   "category": "inbox",
+   "start_here": false,
+   "summary": "Who replied, what needs an answer, who owes you a reply after two business days (with a drafted nudge), and what you promised. Drafts only, never sends.",
+   "for": "Anyone with a busy Gmail inbox",
+   "when": "Two or three times a day, by hand or on a schedule.",
+   "needs": [
+    "Claude Code",
+    "Python 3.9+",
+    "Gmail access"
+   ],
+   "customize": "Copy config/triage-config.example.json and follow SETUP.md.",
+   "conflicts": [],
+   "try": "Triage my inbox. Who replied, who owes me a reply, and what did I promise?",
+   "files": [
+    "SETUP.md",
+    "SKILL.md",
+    "config/triage-config.example.json",
+    "scripts/__pycache__/run_headless.cpython-312.pyc",
+    "scripts/__pycache__/triage.cpython-312.pyc",
+    "scripts/run_headless.py",
+    "scripts/triage.py",
+    "tests/test_triage.py"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- inbox-triage",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) inbox-triage",
+    "manual": "Copy skills/inbox-triage/ into ~/.claude/skills/inbox-triage/"
+   }
+  },
+  {
+   "name": "reading-desk",
+   "title": "Reading desk",
+   "category": "inbox",
+   "start_here": false,
+   "summary": "A calm separate session that shows a numbered list of what needs you and walks through it one item at a time, waiting for next.",
+   "for": "Anyone who avoids a long list of emails or reports",
+   "when": "After triage, or whenever a batch of reading has piled up.",
+   "needs": [
+    "Claude Code or Claude app"
+   ],
+   "customize": "Change the list location and ordering rules in SKILL.md.",
+   "conflicts": [],
+   "try": "Start a reading desk from my last triage.",
+   "files": [
+    "PHONE-DICTATION.md",
+    "READING-MODES.md",
+    "SKILL.md"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- reading-desk",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) reading-desk",
+    "manual": "Copy skills/reading-desk/ into ~/.claude/skills/reading-desk/"
+   }
+  },
+  {
+   "name": "daily-brief",
+   "title": "Daily brief",
+   "category": "inbox",
+   "start_here": false,
+   "summary": "A morning brief from your calendar, recent email and dated industry news, with a week-ahead on Monday and a next-week plan on Friday. Read and draft only.",
+   "for": "Loan officers and realtors, easy to adapt to any field",
+   "when": "Every morning before the first meeting.",
+   "needs": [
+    "Claude with Calendar and Gmail connectors, or pasted agenda"
+   ],
+   "customize": "Swap the news topics for your industry.",
+   "conflicts": [],
+   "try": "Use daily-brief. Prepare today's meetings and sourced news. Read only.",
+   "files": [
+    "SKILL.md"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- daily-brief",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) daily-brief",
+    "manual": "Copy skills/daily-brief/ into ~/.claude/skills/daily-brief/"
+   }
+  },
+  {
+   "name": "voice-profile",
+   "title": "Voice profile",
+   "category": "inbox",
+   "start_here": false,
+   "summary": "Builds a profile of how you write from 100 to 200 of your sent emails, then drafts new messages that sound like you.",
+   "for": "Anyone who wants drafts that do not sound like AI",
+   "when": "Once to build it, then every time another skill drafts in your name.",
+   "needs": [
+    "Claude with Gmail access, or pasted redacted samples"
+   ],
+   "customize": "Edit the approved profile any time you notice a word you would never use.",
+   "conflicts": [],
+   "try": "Use voice-profile on my last 150 sent emails. Build a redacted profile. Send nothing.",
+   "files": [
+    "SKILL.md"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- voice-profile",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) voice-profile",
+    "manual": "Copy skills/voice-profile/ into ~/.claude/skills/voice-profile/"
+   }
+  },
+  {
+   "name": "gauntlet-loop",
+   "title": "Gauntlet loop",
+   "category": "quality",
+   "start_here": true,
+   "summary": "One model builds, a second model blind-compares it against a real named reference, and you loop until ours wins. Hard stop at three rounds.",
+   "for": "Anyone whose flyer, email or video has to be excellent, not decent",
+   "when": "The piece matters enough that one good pass is not enough.",
+   "needs": [
+    "A second model you can paste into, or a second agent"
+   ],
+   "customize": "Name your own reference artifact each run.",
+   "conflicts": [],
+   "license": "CC BY 4.0 (adapted from RoboNuggets)",
+   "try": "Use gauntlet-loop on this email against [named reference]. Stop after three rounds.",
+   "files": [
+    "SKILL.md"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- gauntlet-loop",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) gauntlet-loop",
+    "manual": "Copy skills/gauntlet-loop/ into ~/.claude/skills/gauntlet-loop/"
+   }
+  },
+  {
+   "name": "research-gauntlet",
+   "title": "Research gauntlet",
+   "category": "quality",
+   "start_here": false,
+   "summary": "Two or three models research the same question independently, then a skeptical critic attacks the merged answer before you act on it.",
+   "for": "Anyone making a costly decision from research",
+   "when": "Comparing tools, vendors, strategies, or checking a claim from a video.",
+   "needs": [
+    "Two models if you have them; one works with weaker independence"
+   ],
+   "customize": "The brief template in step 1 is the part to tailor.",
+   "conflicts": [],
+   "try": "Run a research gauntlet on which CRM I should use for 200 contacts.",
+   "files": [
+    "SKILL.md"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- research-gauntlet",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) research-gauntlet",
+    "manual": "Copy skills/research-gauntlet/ into ~/.claude/skills/research-gauntlet/"
+   }
+  },
+  {
+   "name": "fact-check",
+   "title": "Fact check",
+   "category": "quality",
+   "start_here": false,
+   "summary": "Checks every number, date, name and claim in outbound content against a source opened this session before it ships, with a claim table and a running ledger.",
+   "for": "Anyone who sends numbers to clients, partners or followers",
+   "when": "Before any email, caption, flyer or report with a fact in it goes out.",
+   "needs": [
+    "Claude Code or Claude app"
+   ],
+   "customize": "List your own systems of record in the sources section.",
+   "conflicts": [],
+   "try": "Fact check this newsletter before I send it.",
+   "files": [
+    "SKILL.md"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- fact-check",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) fact-check",
+    "manual": "Copy skills/fact-check/ into ~/.claude/skills/fact-check/"
+   }
+  },
+  {
+   "name": "carousel-readability",
+   "title": "Carousel readability",
+   "category": "quality",
+   "start_here": false,
+   "summary": "A fresh critic judges every slide the way a viewer sees it, as a phone thumbnail at a glance: text size, overlap, contrast and spacing.",
+   "for": "Anyone posting Instagram carousels or text-on-image slides",
+   "when": "Before every carousel ships, and after every resize.",
+   "needs": [
+    "Rendered PNG slides",
+    "A subagent or second model"
+   ],
+   "customize": "Update the starting floors table with sizes that test well for your fonts.",
+   "conflicts": [],
+   "try": "Run carousel-readability on these five slides.",
+   "files": [
+    "SKILL.md"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- carousel-readability",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) carousel-readability",
+    "manual": "Copy skills/carousel-readability/ into ~/.claude/skills/carousel-readability/"
+   }
+  },
+  {
+   "name": "yt-brief",
+   "title": "YouTube brief",
+   "category": "content",
+   "start_here": false,
+   "summary": "Pulls a YouTube video's real transcript with a free script and briefs it in two minutes of reading, with a verdict on whether to act on it.",
+   "for": "Anyone who gets sent videos to watch",
+   "when": "You paste a YouTube link with no instructions.",
+   "needs": [
+    "Python 3.9+",
+    "pip install yt-dlp youtube-transcript-api"
+   ],
+   "customize": "Tell it what your work is so the verdict is about you.",
+   "conflicts": [],
+   "try": "Brief me on this: [YouTube link]",
+   "files": [
+    "SKILL.md",
+    "scripts/fetch_transcript.py"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- yt-brief",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) yt-brief",
+    "manual": "Copy skills/yt-brief/ into ~/.claude/skills/yt-brief/"
+   }
+  },
+  {
+   "name": "reel-ship-package",
+   "title": "Reel ship package",
+   "category": "content",
+   "start_here": false,
+   "summary": "An eight-point checklist that turns a finished render into a postable package: size-safe video, caption, thumbnail, audio options, fact check, faces and permission.",
+   "for": "Anyone making short vertical videos",
+   "when": "The moment a reel finishes rendering.",
+   "needs": [
+    "Claude Code",
+    "FFmpeg for compression"
+   ],
+   "customize": "Set your delivery channel's file limit and your thumbnail template.",
+   "conflicts": [],
+   "try": "Package this reel and tell me what is still missing.",
+   "files": [
+    "SKILL.md"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- reel-ship-package",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) reel-ship-package",
+    "manual": "Copy skills/reel-ship-package/ into ~/.claude/skills/reel-ship-package/"
+   }
+  },
+  {
+   "name": "clips-to-reel",
+   "title": "Clips to reel",
+   "category": "content",
+   "start_here": false,
+   "summary": "Turns a folder of event clips into a 15 to 30 second vertical reel with licensed music and captions using FFmpeg, with a local preview and export checks.",
+   "for": "Anyone with event footage and no editor",
+   "when": "After an event, open house or meetup.",
+   "needs": [
+    "Claude Code",
+    "FFmpeg and FFprobe"
+   ],
+   "customize": "Change the beat length and caption style in SKILL.md.",
+   "conflicts": [],
+   "try": "Use clips-to-reel on this folder. Make a 20-second vertical draft. Keep it local.",
+   "files": [
+    "SKILL.md"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- clips-to-reel",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) clips-to-reel",
+    "manual": "Copy skills/clips-to-reel/ into ~/.claude/skills/clips-to-reel/"
+   }
+  },
+  {
+   "name": "open-house-flyer",
+   "title": "Open-house flyer",
+   "category": "realtor",
+   "start_here": false,
+   "summary": "Builds a sourced open-house flyer in the realtor's chosen style from permitted listing photos and facts, with print and phone exports.",
+   "for": "Realtors and the loan officers who support them",
+   "when": "A listing is going to open house.",
+   "needs": [
+    "Claude Code or Claude app with file creation"
+   ],
+   "customize": "Point it at your own style samples.",
+   "conflicts": [],
+   "try": "Use open-house-flyer with this listing export and photos. Build print and phone drafts. Publish nothing.",
+   "files": [
+    "SKILL.md"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- open-house-flyer",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) open-house-flyer",
+    "manual": "Copy skills/open-house-flyer/ into ~/.claude/skills/open-house-flyer/"
+   }
+  },
+  {
+   "name": "realtor-showcase-page",
+   "title": "Realtor showcase page",
+   "category": "realtor",
+   "start_here": false,
+   "summary": "A mobile one-page get-to-know-your-agent site plus a QR for the flyer, from approved realtor facts, photos and public contact details.",
+   "for": "Realtors and the loan officers who support them",
+   "when": "You want a flyer QR that goes somewhere better than a listing page.",
+   "needs": [
+    "Claude Code or Claude app with file creation"
+   ],
+   "customize": "Swap the sections for what the agent wants to show.",
+   "conflicts": [],
+   "try": "Use realtor-showcase-page with these approved facts and photos. Build a draft page and QR.",
+   "files": [
+    "SKILL.md"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- realtor-showcase-page",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) realtor-showcase-page",
+    "manual": "Copy skills/realtor-showcase-page/ into ~/.claude/skills/realtor-showcase-page/"
+   }
+  },
+  {
+   "name": "comment-to-dm-funnel",
+   "title": "Comment-to-DM funnel",
+   "category": "realtor",
+   "start_here": false,
+   "summary": "Stages an Instagram comment keyword to DM link to landing-page capture flow for a CRM that supports it, with consent and duplicate-send checks.",
+   "for": "Anyone running comment-a-keyword calls to action",
+   "when": "A post is about to go out with a comment-to-get-it CTA.",
+   "needs": [
+    "A CRM with Instagram DM automation"
+   ],
+   "customize": "Keyword, DM copy and landing page per post.",
+   "conflicts": [],
+   "try": "Use comment-to-dm-funnel to stage the keyword GUIDE for my next post. Activate nothing.",
+   "files": [
+    "SKILL.md"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- comment-to-dm-funnel",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) comment-to-dm-funnel",
+    "manual": "Copy skills/comment-to-dm-funnel/ into ~/.claude/skills/comment-to-dm-funnel/"
+   }
+  },
+  {
+   "name": "browser-agent-tasks",
+   "title": "Browser agent tasks",
+   "category": "realtor",
+   "start_here": false,
+   "summary": "Prepares supervised browser workflows in Claude in Chrome for comps, CRM changes, pricing, letter drafts and reconciliation, with you approving each step.",
+   "for": "Loan officers and realtors, adaptable to any back-office work",
+   "when": "A repetitive web task eats an hour you would rather spend with people.",
+   "needs": [
+    "Claude in Chrome or another browser agent"
+   ],
+   "customize": "Add your own recurring web chores as new task cards.",
+   "conflicts": [],
+   "try": "Use browser-agent-tasks to plan a supervised CRM cleanup. Change nothing yet.",
+   "files": [
+    "SKILL.md"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- browser-agent-tasks",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) browser-agent-tasks",
+    "manual": "Copy skills/browser-agent-tasks/ into ~/.claude/skills/browser-agent-tasks/"
+   }
+  },
+  {
+   "name": "daily-outreach",
+   "title": "Daily outreach",
+   "category": "realtor",
+   "start_here": false,
+   "summary": "A four-a-day relationship habit: two sphere contacts and two realtors, with call templates and one-minute after-call notes. Draft only.",
+   "for": "Loan officers and realtors building referral relationships",
+   "when": "Every workday, ideally before noon.",
+   "needs": [
+    "Claude app or Claude Code",
+    "Your contact list"
+   ],
+   "customize": "Change the daily mix and templates to fit your business.",
+   "conflicts": [],
+   "try": "Use daily-outreach. Prepare two sphere calls and two realtor calls. Draft only.",
+   "files": [
+    "SKILL.md"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- daily-outreach",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) daily-outreach",
+    "manual": "Copy skills/daily-outreach/ into ~/.claude/skills/daily-outreach/"
+   }
+  }
+ ]
+};
