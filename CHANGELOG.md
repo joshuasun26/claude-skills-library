@@ -2,6 +2,10 @@
 
 All notable changes to this library. Dates are when the change landed here.
 
+## 1.0.2 (2026-11-23)
+
+- `yt-brief`: new Step 4, act on it. Saves every transcript, rates the tools a video mentions, safety-checks anything it links before install, and ends with a reuse block.
+
 ## 1.0.1 (2026-11-23)
 
 Fixes from the launch-day reviews.
