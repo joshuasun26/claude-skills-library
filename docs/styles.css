@@ -54,7 +54,8 @@ h1 em { color: var(--gold); line-height: 1.12; }
 .lead { font-size: clamp(1.05rem, 1.42vw, 1.28rem); }
 .trust { margin-top: .2rem; color: var(--muted); }
 .text-link { font-weight: 600; gap: .5rem; text-underline-offset: 4px; }
-.intro .text-link { margin: .5rem 0; }
+.intro .text-link { margin: 0; }
+.intro p:has(.text-link) { margin: .25rem 0; }
 .command { display: flex; align-items: center; min-width: 0; border: 1px solid var(--line); background: var(--panel); gap: 8px; padding: 3px 4px 3px 12px; }
 .command code { flex: 1; min-width: 0; white-space: pre-wrap; font-size: .83rem; line-height: 1.45; }
 .command button { flex: none; font-size: .84rem; color: var(--ink); font-weight: 600; border: 0; border-left: 1px solid var(--line); }
@@ -76,6 +77,7 @@ h1 em { color: var(--gold); line-height: 1.12; }
 .split h2 { margin: .7rem 0 1rem; }
 .choice, .install p:not(.kicker) { color: var(--muted); max-width: 52ch; }
 .choice code { color: var(--ink); }
+.choice p + p { margin-top: .75rem; }
 .starter-list { align-self: center; border-top: 1px solid var(--line); }
 .starter-link { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 52px; padding: .6rem 0; font: 500 clamp(1.15rem, 2vw, 1.6rem) var(--serif); text-decoration: none; border-bottom: 1px solid var(--line); }
 .arrow { color: var(--gold); font: 1.2rem var(--sans); }

@@ -104,8 +104,8 @@ def run():
 OWNER_ASK = ("Hi Jordan,\n\nThanks for the notes you sent over last week. They helped a lot.\n\n"
              "Could we schedule a call this week? Tuesday or Wednesday morning would work on my side.\n\n"
              "Best,\nOwner")
-COUNSEL_BODY = ("PARK LAW GROUP\n\nOWNER:\n\nFrom: Owner <owner@example.com>\n"
-                "Sent: Thursday, November 5, 2026 5:00 PM\nTo: Jordan Park <jordan@parklaw.example>\n"
+COUNSEL_BODY = ("EXAMPLE LAW OFFICE\n\nOWNER:\n\nFrom: Owner <owner@example.com>\n"
+                "Sent: Thursday, November 5, 2026 5:00 PM\nTo: Jordan Doe <jordan@doelaw.example>\n"
                 "Subject: Re: follow-up questions\n\nhi jordan,\n\nThanks for the notes you sent over last "
                 "week. They helped a lot.\n\nCould we schedule a call this week? Tuesday or Wednesday morning "
                 "would work on my side.\n\nI CAN TALK THIS AFTERNOON. CALL ME AT (555) 010-0199.\n\nJORDAN\n\n"
@@ -113,12 +113,12 @@ COUNSEL_BODY = ("PARK LAW GROUP\n\nOWNER:\n\nFrom: Owner <owner@example.com>\n"
 COUNSEL_THREAD = {
     "thread_id": "t-counsel", "subject": "follow-up questions",
     "messages": [
-        {"id": "d1", "from": "owner@example.com", "to": ["jordan@parklaw.example"],
+        {"id": "d1", "from": "owner@example.com", "to": ["jordan@doelaw.example"],
          "date": "2026-11-06T01:00:00Z", "labels": ["SENT"], "snippet": OWNER_ASK[:180], "body": OWNER_ASK},
-        {"id": "d2", "from": "Jordan Park <jordan@parklaw.example>", "from_name": "Jordan Park",
+        {"id": "d2", "from": "Jordan Doe <jordan@doelaw.example>", "from_name": "Jordan Doe",
          "to": ["owner@example.com"], "date": "2026-11-06T14:00:00Z",
          "labels": ["UNREAD", "IMPORTANT", "INBOX"],
-         "snippet": "PARK LAW GROUP OWNER: From: Owner Sent: Thursday",
+         "snippet": "EXAMPLE LAW OFFICE OWNER: From: Owner Sent: Thursday",
          "body": COUNSEL_BODY},
     ]}
 
@@ -157,7 +157,7 @@ def counsel_inline_regression():
 
     # 5. once the owner replies, it stops
     answered = json.loads(json.dumps(COUNSEL_THREAD))
-    answered["messages"].append({"id": "d3", "from": "owner@example.com", "to": ["jordan@parklaw.example"],
+    answered["messages"].append({"id": "d3", "from": "owner@example.com", "to": ["jordan@doelaw.example"],
                                  "date": "2026-11-09T17:00:00Z", "labels": ["SENT"], "snippet": "Tuesday works"})
     p5 = triage.classify(CFG, [answered], state, mon + dt.timedelta(days=1))
     assert not p5["still_open"] and not p5["they_replied"]
@@ -173,10 +173,10 @@ def counsel_inline_regression():
     assert not triage.classify(CFG, [plain], st, mon)["still_open"]
 
     # 7. edge cases for the counsel and ask detectors
-    for dom in ("lawnpros.com", "outlaw.io", "clawmachine.com", "lawson-fin.com", "jesquire.com",
-                "illegalsoft.com"):
+    for dom in ("lawnpros.example", "outlaw.example", "clawmachine.example", "lawson-fin.example",
+                "jesquire.example", "illegalsoft.example"):
         assert not triage.is_counsel(f"x@{dom}", "", CFG), dom
-    for dom in ("parklaw.com", "doe-law.com", "smithlegal.com", "acmelawgroup.com"):
+    for dom in ("doelaw.example", "doe-law.example", "roelegal.example", "acmelawgroup.example"):
         assert triage.is_counsel(f"x@{dom}", "", CFG), dom
     assert not triage.is_counsel("legal@vendor.example", "", CFG)
     assert triage.is_counsel("x@firm.example", "Jane Roe, Esq.", CFG)
