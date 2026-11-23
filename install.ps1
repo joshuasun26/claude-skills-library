@@ -74,4 +74,5 @@ try {
 } finally {
   if ($Tmp -and (Test-Path $Tmp)) { Remove-Item -LiteralPath $Tmp -Recurse -Force -ErrorAction SilentlyContinue }
 }
-if ($Failed -gt 0 -or ($Installed -eq 0 -and -not $List)) { exit 1 }
+# Exit non-zero only when run as a file; 'exit' inside the one-line scriptblock would close your PowerShell window.
+if (($Failed -gt 0 -or ($Installed -eq 0 -and -not $List)) -and $PSCommandPath) { exit 1 }
