@@ -10,30 +10,38 @@ Every skill here is drafts-first. None of them sends an email, posts, publishes 
 
 If you are setting up a computer that stays on and runs Claude all day, install these first:
 
-1. **`session-refresh`** keeps one main session alive all day by compacting in place and re-reading a saved handoff. Pick this one if you often drive Claude from your phone.
-   *Or* **`session-handoff-60`**, which starts a fresh session at 60% context instead. Install one of the two, not both. They use the same hook slot.
-2. **`mac-mini-station-setup`** walks you through never-sleep settings, Remote Control and remote desktop, one step at a time. It is written for macOS.
+1. **Pick one session routine, not both.** **`session-refresh`** keeps the same main chat open all day, so your phone stays connected to it. **`session-handoff-60`** opens a clean new chat for you each time the current one fills up. If unsure, pick `session-refresh`. Both need Python 3.9 or newer; `session-refresh` also uses the Claude desktop app for its daily morning start.
+2. **`mac-mini-station-setup`** walks you through never-sleep settings, Remote Control and remote desktop, one step at a time. It is written for macOS. On Windows, skip it and set Settings, System, Power, Screen and sleep to Never while plugged in.
 3. **`gauntlet-loop`** gets a second model to challenge anything important before it goes out.
 
 ## Install
 
-**Mac or Linux**, one skill or several:
+No git needed. Paste one line into Terminal (Mac) or PowerShell (Windows), with the skill names you want:
+
+**Mac or Linux:**
 
 ```bash
-git clone https://github.com/joshuasun26/claude-skills-library.git
-cd claude-skills-library
-./install.sh gauntlet-loop fact-check
+curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- session-refresh gauntlet-loop
 ```
 
 **Windows PowerShell:**
 
 ```powershell
-git clone https://github.com/joshuasun26/claude-skills-library.git
-cd claude-skills-library
-.\install.ps1 gauntlet-loop fact-check
+& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) session-refresh gauntlet-loop
 ```
 
-No git? Each skill page on the [catalog site](https://joshuasun26.github.io/claude-skills-library/) has a one-line install command you can copy. Prefer to do it by hand? Copy a folder from `skills/` into `~/.claude/skills/` so you end up with `~/.claude/skills/<skill-name>/SKILL.md`. On Windows, `~` is your user folder (`%USERPROFILE%`).
+Each skill card on the [catalog site](https://joshuasun26.github.io/claude-skills-library/) has the same line ready to copy for that one skill.
+
+**Optional: clone with git** to keep a local copy you can update with `git pull`:
+
+```bash
+git clone https://github.com/joshuasun26/claude-skills-library.git
+cd claude-skills-library
+./install.sh session-refresh gauntlet-loop                                     # Mac or Linux
+powershell -ExecutionPolicy Bypass -File .\install.ps1 session-refresh gauntlet-loop   # Windows
+```
+
+Prefer to do it by hand? Copy a folder from `skills/` into `~/.claude/skills/` so you end up with `~/.claude/skills/<skill-name>/SKILL.md`. On Windows, `~` is your user folder (`%USERPROFILE%`).
 
 The installers only copy skill folders. If you already have a skill with the same name, it is moved to `~/.claude/skills-backups/` first. They never touch `settings.json` or your hooks. The two session skills need one more step, which Claude does with you and shows you the settings diff before writing.
 
@@ -41,12 +49,14 @@ Start a new Claude Code session after installing, then ask for the skill by name
 
 ## Catalog
 
+The last column is the command from a cloned copy. On Windows use `powershell -ExecutionPolicy Bypass -File .\install.ps1 <name>`, or copy the one-line install from the skill's card on the catalog site.
+
 <!-- catalog:begin -->
-| Skill | What it does | Who it is for | Install (Mac/Linux) |
+| Skill | What it does | Who it is for | From a clone (Mac/Linux) |
 |---|---|---|---|
 | **Always-on and sessions** | | | |
-| [`session-handoff-60`](skills/session-handoff-60/) (start here) | When your main Claude Code session hits 60% context, Claude writes a handoff file, opens a fresh session that carries on, and pins it. | Anyone who keeps one main session open all day | `./install.sh session-handoff-60` |
-| [`session-refresh`](skills/session-refresh/) (start here) | Keeps one visible main session all day. Claude compacts in place at about 30% of the window, re-reads your handoff, and starts one fresh dated session each morning. | Always-on machines and people who drive Claude from their phone | `./install.sh session-refresh` |
+| [`session-refresh`](skills/session-refresh/) (start here: pick one, not both) | Keeps one visible main session all day. Claude compacts in place at about 30% of the window, re-reads your handoff, and starts one fresh dated session each morning. | Always-on machines and people who drive Claude from their phone | `./install.sh session-refresh` |
+| [`session-handoff-60`](skills/session-handoff-60/) (start here: pick one, not both) | When your main Claude Code session hits 60% context, Claude writes a handoff file, opens a fresh session that carries on, and pins it. | Anyone who keeps one main session open all day | `./install.sh session-handoff-60` |
 | [`mac-mini-station-setup`](skills/mac-mini-station-setup/) (start here) | Walks you through turning a Mac into an always-on AI station one step at a time: never sleep, Remote Control, Chrome Remote Desktop, working folder, screenshot shortcut. | Anyone setting up a home or office Mac that stays on | `./install.sh mac-mini-station-setup` |
 | [`wake-gate`](skills/wake-gate/) | A free script watches Gmail, a folder or a web page and only wakes an AI job when something new arrives, so you stop paying a model to poll. | Anyone automating on incoming email, files or page changes | `./install.sh wake-gate` |
 | **Inbox and daily rhythm** | | | |

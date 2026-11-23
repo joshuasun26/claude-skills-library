@@ -15,7 +15,7 @@
   <a class="skip" href="#catalog">Skip to catalog</a>
   <header class="mast wrap">
     <a class="brand" href="#top"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>Skills Library</a>
-    <nav aria-label="Page"><a href="#catalog">Catalog</a><a href="#install">Install</a></nav>
+    <nav aria-label="Page"><a href="#start">Start here</a><a href="#catalog">Catalog</a><a href="#install">Install</a></nav>
   </header>
   <main id="top" class="wrap">
     <section class="hero" aria-labelledby="title">
@@ -24,15 +24,15 @@
         <h1 id="title">Claude Code<br><em>Skills Library</em></h1>
         <p class="lead">Claude Code skills you can copy into <code>~/.claude/skills/</code>.</p>
         <p class="trust">Drafts first. Nothing sends on its own.</p>
-        <a class="text-link" id="repo" href="https://github.com/joshuasun26/claude-skills-library">View on GitHub <span aria-hidden="true">↗</span></a>
-        <div class="command" id="hero-clone"></div>
+        <p><a class="text-link" href="#start">Start here: always-on setup <span aria-hidden="true">↘</span></a></p>
+        <p><a class="text-link" href="#catalog">Browse all skills</a> or <a class="text-link" id="repo" href="https://github.com/joshuasun26/claude-skills-library">view on GitHub <span aria-hidden="true">↗</span></a></p>
       </div>
       <nav class="shelf" aria-label="Browse by category">
         <div class="shelf-label"><span>Category index</span><span id="shelf-count"></span></div>
         <div id="books" class="books"></div>
       </nav>
     </section>
-    <section class="starter split" aria-labelledby="start-title">
+    <section class="starter split" id="start" aria-labelledby="start-title">
       <div><p class="kicker">Start here</p><h2 id="start-title">Setting up an<br>always-on machine?</h2>
         <div id="choice" class="choice"></div>
       </div>
@@ -53,8 +53,10 @@
         <p>Choose just the skills you need. The installer backs up existing skills to <code>~/.claude/skills-backups/</code> and leaves your settings untouched.</p>
       </div>
       <div class="steps">
-        <h3>Clone the library</h3><div class="command" id="install-clone"></div>
-        <h3>Install your picks</h3><p>Open the downloaded folder with <code>cd claude-skills-library</code>. Replace <code>a b</code> with the names of the skills you want.</p>
+        <h3>One line, no git needed</h3><p>Paste into Terminal (Mac) or PowerShell (Windows). This installs the starter pair; swap in any skill names from the catalog.</p>
+        <div id="remote-install"></div>
+        <h3>Or clone the library</h3><div class="command" id="install-clone"></div>
+        <p>Then, inside the <code>claude-skills-library</code> folder:</p>
         <div id="local-install"></div>
         <h3>Or copy a skill by hand</h3><p>Copy its folder from <code>skills/</code> into <code>~/.claude/skills/</code>, keeping the folder name.</p>
       </div>

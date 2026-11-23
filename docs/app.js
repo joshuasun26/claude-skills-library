@@ -179,9 +179,16 @@
     card.scrollIntoView({ block: "start" });
   }
 
-  command(byId("hero-clone"), clone, "clone command");
   command(byId("install-clone"), clone, "clone command");
-  installer(byId("local-install"), { mac: "./install.sh a b", win: ".\\install.ps1 a b" }, "selected skills");
+  const raw = "https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main";
+  installer(byId("remote-install"), {
+    mac: "curl -fsSL " + raw + "/install.sh | bash -s -- session-refresh gauntlet-loop",
+    win: "& ([scriptblock]::Create((irm " + raw + "/install.ps1))) session-refresh gauntlet-loop"
+  }, "starter skills");
+  installer(byId("local-install"), {
+    mac: "./install.sh session-refresh gauntlet-loop",
+    win: "powershell -ExecutionPolicy Bypass -File .\\install.ps1 session-refresh gauntlet-loop"
+  }, "selected skills from a clone");
   const date = byId("updated");
   date.dateTime = updated;
   date.textContent = new Intl.DateTimeFormat("en", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" })
@@ -207,7 +214,7 @@
       note.append(element("code", "", "session-refresh"),
         " keeps one main session all day and works well from your phone; ",
         element("code", "", "session-handoff-60"),
-        " starts a fresh session each time context reaches 60%. If unsure, start with session-refresh.");
+        " starts a fresh session each time context reaches 60%. If unsure, start with session-refresh. Both need Python 3.9 or newer.");
       byId("choice").append(note);
     }
   }

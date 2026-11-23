@@ -25,34 +25,6 @@ window.SKILLS_CATALOG = {
  ],
  "skills": [
   {
-   "name": "session-handoff-60",
-   "title": "60% session handoff",
-   "category": "always-on",
-   "start_here": true,
-   "summary": "When your main Claude Code session hits 60% context, Claude writes a handoff file, opens a fresh session that carries on, and pins it.",
-   "for": "Anyone who keeps one main session open all day",
-   "when": "You have a long-running main chat that gets slow or forgetful by afternoon.",
-   "needs": [
-    "Claude Code desktop app",
-    "Python 3.9+"
-   ],
-   "customize": "Edit scripts/context_gauge_config.json: threshold, handoff folder, main session name.",
-   "conflicts": [
-    "session-refresh"
-   ],
-   "try": "Set up the 60% handoff for my main session called Main.",
-   "files": [
-    "SKILL.md",
-    "scripts/context_gauge.py",
-    "scripts/context_gauge_config.json"
-   ],
-   "install": {
-    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- session-handoff-60",
-    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) session-handoff-60",
-    "manual": "Copy skills/session-handoff-60/ into ~/.claude/skills/session-handoff-60/"
-   }
-  },
-  {
    "name": "session-refresh",
    "title": "Session refresh (compact in place)",
    "category": "always-on",
@@ -81,6 +53,34 @@ window.SKILLS_CATALOG = {
     "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- session-refresh",
     "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) session-refresh",
     "manual": "Copy skills/session-refresh/ into ~/.claude/skills/session-refresh/"
+   }
+  },
+  {
+   "name": "session-handoff-60",
+   "title": "60% session handoff",
+   "category": "always-on",
+   "start_here": true,
+   "summary": "When your main Claude Code session hits 60% context, Claude writes a handoff file, opens a fresh session that carries on, and pins it.",
+   "for": "Anyone who keeps one main session open all day",
+   "when": "You have a long-running main chat that gets slow or forgetful by afternoon.",
+   "needs": [
+    "Claude Code desktop app",
+    "Python 3.9+"
+   ],
+   "customize": "Edit scripts/context_gauge_config.json: threshold, handoff folder, main session name.",
+   "conflicts": [
+    "session-refresh"
+   ],
+   "try": "Set up the 60% handoff for my main session called Main.",
+   "files": [
+    "SKILL.md",
+    "scripts/context_gauge.py",
+    "scripts/context_gauge_config.json"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- session-handoff-60",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) session-handoff-60",
+    "manual": "Copy skills/session-handoff-60/ into ~/.claude/skills/session-handoff-60/"
    }
   },
   {

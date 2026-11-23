@@ -21,8 +21,12 @@ if [ $# -eq 0 ]; then
 fi
 
 SRC=""
-HERE="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" 2>/dev/null && pwd || true)"
-if [ -n "$HERE" ] && [ -d "$HERE/skills" ]; then
+HERE=""
+# Only trust a local skills/ folder when this script is a real file (not piped from curl).
+if [ -n "${BASH_SOURCE[0]:-}" ] && [ -f "${BASH_SOURCE[0]}" ]; then
+  HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" 2>/dev/null && pwd || true)"
+fi
+if [ -n "$HERE" ] && [ -d "$HERE/skills" ] && [ "$HERE/skills" != "$DEST" ]; then
   SRC="$HERE/skills"
 else
   TMP="$(mktemp -d)"
@@ -39,13 +43,24 @@ fi
 
 mkdir -p "$DEST"
 STAMP="$(date +%Y%m%d-%H%M%S)"
+INSTALLED=0; FAILED=0; SEEN=" "
 for NAME in "$@"; do
+  case "$SEEN" in *" $NAME "*) continue ;; esac
+  SEEN="$SEEN$NAME "
   case "$NAME" in
-    */*|.*|"") echo "Skipping invalid name: $NAME"; continue ;;
+    */*|.*|"") echo "Skipping invalid name: $NAME"; FAILED=$((FAILED+1)); continue ;;
   esac
   if [ ! -f "$SRC/$NAME/SKILL.md" ]; then
     echo "Not found: $NAME  (run with --list to see names)"
-    continue
+    FAILED=$((FAILED+1)); continue
+  fi
+  case "$NAME" in
+    session-refresh) OTHER=session-handoff-60 ;;
+    session-handoff-60) OTHER=session-refresh ;;
+    *) OTHER="" ;;
+  esac
+  if [ -n "$OTHER" ] && { [ -e "$DEST/$OTHER" ] || case "$SEEN" in *" $OTHER "*) true ;; *) false ;; esac; }; then
+    echo "Note: $NAME and $OTHER are pick-one. Use only one; remove the other from $DEST before finishing setup."
   fi
   if [ -e "$DEST/$NAME" ]; then
     mkdir -p "$BACKUP"
@@ -54,9 +69,15 @@ for NAME in "$@"; do
   fi
   cp -R "$SRC/$NAME" "$DEST/$NAME"
   echo "Installed $NAME -> $DEST/$NAME"
-  case "$NAME" in
-    session-handoff-60|session-refresh)
-      echo "  Next: open Claude Code and say: Read $NAME/SKILL.md and finish the install. Show me the settings diff first." ;;
-  esac
+  INSTALLED=$((INSTALLED+1))
+  if [ -n "$OTHER" ]; then
+    EXTRA=""; [ -f "$DEST/$NAME/INSTALL-PROMPT.md" ] && EXTRA=" and $DEST/$NAME/INSTALL-PROMPT.md"
+    echo "  Next: open Claude Code and say: Read $DEST/$NAME/SKILL.md$EXTRA and finish the install. Back up my settings and show me the diff first."
+  fi
 done
-echo "Done. Start a new Claude Code session to load new skills."
+if [ "$INSTALLED" -gt 0 ]; then
+  echo "Done: $INSTALLED installed. Start a new Claude Code session to load new skills."
+else
+  echo "Nothing was installed."
+fi
+[ "$FAILED" -eq 0 ] && [ "$INSTALLED" -gt 0 ]

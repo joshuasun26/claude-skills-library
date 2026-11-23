@@ -77,11 +77,11 @@ def skill_readme(s):
 
 
 def table():
-    rows = ["| Skill | What it does | Who it is for | Install (Mac/Linux) |", "|---|---|---|---|"]
+    rows = ["| Skill | What it does | Who it is for | From a clone (Mac/Linux) |", "|---|---|---|---|"]
     for cat in CAT["categories"]:
         rows.append(f"| **{cat['label']}** | | | |")
         for s in [x for x in CAT["skills"] if x["category"] == cat["id"]]:
-            star = " (start here)" if s.get("start_here") else ""
+            star = (" (start here: pick one, not both)" if s.get("conflicts") else " (start here)") if s.get("start_here") else ""
             rows.append(f"| [`{s['name']}`](skills/{s['name']}/){star} | {s['summary']} | {s['for']} | `./install.sh {s['name']}` |")
     return "\n".join(rows)
 
