@@ -1,12 +1,12 @@
-# 60% session handoff
+# 60% session handoff (older, use session-refresh)
 
 `session-handoff-60` | Always-on and sessions
 
-When your main Claude Code session hits 60% context, Claude writes a handoff file, opens a fresh session that carries on, and pins it.
+Older approach, kept for setups that cannot compact in place. At 60% context Claude writes a handoff file, opens a fresh session and pins it. Most people should install session-refresh instead.
 
 | | |
 |---|---|
-| **What** | When your main Claude Code session hits 60% context, Claude writes a handoff file, opens a fresh session that carries on, and pins it. |
+| **What** | Older approach, kept for setups that cannot compact in place. At 60% context Claude writes a handoff file, opens a fresh session and pins it. Most people should install session-refresh instead. |
 | **When** | You have a long-running main chat that gets slow or forgetful by afternoon. |
 | **Who it is for** | Anyone who keeps one main session open all day |
 | **Needs** | Claude Code desktop app, Python 3.9+ |

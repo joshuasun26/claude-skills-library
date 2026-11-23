@@ -26,7 +26,7 @@
   "skills": [
     {
       "name": "session-refresh",
-      "title": "Session refresh (compact in place)",
+      "title": "Session refresh (recommended: compact in place, fresh session daily)",
       "category": "always-on",
       "start_here": true,
       "summary": "Keeps one visible main session all day. Claude compacts in place at about 30% of the window, re-reads your handoff, and starts one fresh dated session each morning.",
@@ -45,10 +45,10 @@
     },
     {
       "name": "session-handoff-60",
-      "title": "60% session handoff",
+      "title": "60% session handoff (older, use session-refresh)",
       "category": "always-on",
-      "start_here": true,
-      "summary": "When your main Claude Code session hits 60% context, Claude writes a handoff file, opens a fresh session that carries on, and pins it.",
+      "start_here": false,
+      "summary": "Older approach, kept for setups that cannot compact in place. At 60% context Claude writes a handoff file, opens a fresh session and pins it. Most people should install session-refresh instead.",
       "for": "Anyone who keeps one main session open all day",
       "when": "You have a long-running main chat that gets slow or forgetful by afternoon.",
       "needs": [

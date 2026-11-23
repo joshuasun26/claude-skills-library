@@ -10,7 +10,7 @@ Every skill here is drafts-first. None of them sends an email, posts, publishes 
 
 If you are setting up a computer that stays on and runs Claude all day, install these first:
 
-1. **Pick one session routine, not both.** **`session-refresh`** keeps the same main chat open all day, so your phone stays connected to it. **`session-handoff-60`** opens a clean new chat for you each time the current one fills up. If unsure, pick `session-refresh`. Both need Python 3.9 or newer; `session-refresh` also uses the Claude desktop app for its daily morning start.
+1. **Use `session-refresh` for your main session.** It keeps the same main chat open all day by compacting in place at about 30% of the window, so your phone stays connected, and it starts one fresh dated session each morning. `session-handoff-60` is the older approach (a new chat at 60%); keep it only if your setup cannot compact in place, and never install both. Both need Python 3.9 or newer; `session-refresh` also uses the Claude desktop app for its daily morning start.
 2. **`mac-mini-station-setup`** walks you through never-sleep settings, Remote Control and remote desktop, one step at a time. It is written for macOS. On Windows, skip it and set Settings, System, Power, Screen and sleep to Never while plugged in.
 3. **`gauntlet-loop`** gets a second model to challenge anything important before it goes out.
 
@@ -56,7 +56,7 @@ The last column is the command from a cloned copy. On Windows use `powershell -E
 |---|---|---|---|
 | **Always-on and sessions** | | | |
 | [`session-refresh`](skills/session-refresh/) (start here: pick one, not both) | Keeps one visible main session all day. Claude compacts in place at about 30% of the window, re-reads your handoff, and starts one fresh dated session each morning. | Always-on machines and people who drive Claude from their phone | `./install.sh session-refresh` |
-| [`session-handoff-60`](skills/session-handoff-60/) (start here: pick one, not both) | When your main Claude Code session hits 60% context, Claude writes a handoff file, opens a fresh session that carries on, and pins it. | Anyone who keeps one main session open all day | `./install.sh session-handoff-60` |
+| [`session-handoff-60`](skills/session-handoff-60/) | Older approach, kept for setups that cannot compact in place. At 60% context Claude writes a handoff file, opens a fresh session and pins it. Most people should install session-refresh instead. | Anyone who keeps one main session open all day | `./install.sh session-handoff-60` |
 | [`mac-mini-station-setup`](skills/mac-mini-station-setup/) (start here) | Walks you through turning a Mac into an always-on AI station one step at a time: never sleep, Remote Control, Chrome Remote Desktop, working folder, screenshot shortcut. | Anyone setting up a home or office Mac that stays on | `./install.sh mac-mini-station-setup` |
 | [`wake-gate`](skills/wake-gate/) | A free script watches Gmail, a folder or a web page and only wakes an AI job when something new arrives, so you stop paying a model to poll. | Anyone automating on incoming email, files or page changes | `./install.sh wake-gate` |
 | **Inbox and daily rhythm** | | | |

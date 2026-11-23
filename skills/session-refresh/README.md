@@ -1,4 +1,4 @@
-# Session refresh (compact in place)
+# Session refresh (recommended: compact in place, fresh session daily)
 
 `session-refresh` | Always-on and sessions
 

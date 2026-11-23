@@ -5,6 +5,8 @@ description: Keeps your main Claude Code session from running out of memory. Whe
 
 # 60% session handoff
 
+> **Older approach.** Most people should use `session-refresh` instead: it compacts the main session in place at about 30% of the window and starts one fresh dated session each morning. Keep this one only if your Claude Code version or model cannot use the compaction setting. Never install both.
+
 ## The problem it solves
 A long Claude Code session slowly fills its context window. Past about 60%, answers get slower, costlier and less sharp, and at 100% the session compacts and forgets details. People keep one "main" session open all day (a chief-of-staff or command-center chat), so this hits them the hardest.
 
