@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "channel": {
+    "kind": "folder",
+    "path": "~/Google Drive/ai-team-board",
+    "note": "Use kind: slack with channel: #ai-team if you have Slack. Keep the folder anyway as the task record."
+  },
+  "workers": {
+    "claude": {"label": "Claude (coordinator)", "mode": "self", "cost": "subscription", "private_ok": true},
+    "muse": {"label": "Muse by Meta (web or phone app)", "mode": "paste", "cost": "free", "private_ok": false},
+    "chatgpt": {"label": "ChatGPT app", "mode": "paste", "cost": "subscription", "private_ok": false},
+    "codex": {"label": "Codex CLI", "mode": "cli", "command": "codex exec -", "stdin": true, "cost": "subscription", "private_ok": false},
+    "gemini": {"label": "Gemini CLI", "mode": "cli", "command": "gemini", "stdin": true, "cost": "free tier", "private_ok": false},
+    "grok": {"label": "Grok", "mode": "paste", "cost": "subscription", "private_ok": false}
+  },
+  "routes": {
+    "research": ["muse", "grok", "gemini", "claude"],
+    "brainstorm": ["muse", "chatgpt", "claude"],
+    "writing": ["muse", "chatgpt", "claude"],
+    "build": ["codex", "claude"],
+    "review": ["claude", "codex", "gemini"],
+    "image": ["chatgpt", "muse"],
+    "long-read": ["gemini", "claude"],
+    "other": ["claude"]
+  },
+  "limits": {
+    "never_share": ["passwords and keys", "account or ID numbers", "client names and contact details", "health or money details"],
+    "max_rounds": 3
+  }
+}

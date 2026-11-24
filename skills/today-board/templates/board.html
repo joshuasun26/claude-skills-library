@@ -1,0 +1,226 @@
+<title>Today Board</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one column on phones, the day (calls, only-you, waiting) as three panels over a grouped checklist. */
+:root {
+  --bg: #f3f5f4; --surface: #ffffff; --fg: #17201d; --muted: #5b6863; --line: #dbe2df;
+  --accent: #0e6b5c; --accent-soft: #e1f0ec; --warn: #9a5b00;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1513; --surface: #17201d; --fg: #e6eeeb; --muted: #9aa9a3; --line: #2a3632;
+  --accent: #5cc8b2; --accent-soft: #1d3530; --warn: #f0b45a; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0f1513; --surface: #17201d; --fg: #e6eeeb; --muted: #9aa9a3; --line: #2a3632;
+  --accent: #5cc8b2; --accent-soft: #1d3530; --warn: #f0b45a; color-scheme: dark }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--body); }
+.wrap { max-width: 980px; margin: 0 auto; padding-block: 20px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 22px; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; }
+h1 { font: 700 clamp(26px, 5vw, 34px)/1.1 var(--display); margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+h2 { font: 600 13px/1.2 var(--body); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0; }
+.stamp { font: 500 12px/1.4 var(--mono); color: var(--muted); }
+.day { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.panel ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.panel li { display: grid; gap: 1px; min-width: 0; overflow-wrap: anywhere; }
+.ev { grid-template-columns: 74px 1fr; column-gap: 10px; }
+.time { font: 500 13px/1.5 var(--mono); color: var(--accent); font-variant-numeric: tabular-nums; }
+.sub { color: var(--muted); font-size: 13px; }
+.only li { padding-left: 10px; border-left: 3px solid var(--warn); }
+.empty { color: var(--muted); font-size: 14px; margin: 0; }
+.todo { display: grid; gap: 12px; }
+.todo-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.todo-head h2 { font: 700 20px/1.2 var(--display); text-transform: none; letter-spacing: 0; color: var(--fg); }
+.count { font: 500 12px var(--mono); color: var(--muted); }
+form.add { display: flex; gap: 8px; }
+form.add input { flex: 1; min-width: 0; font: inherit; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--fg); }
+button { font: 600 14px var(--body); padding: 9px 14px; border-radius: 8px; border: 1px solid var(--accent); background: var(--accent); color: var(--bg); cursor: pointer; }
+button.ghost { background: transparent; color: var(--accent); }
+button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+details.grp { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+details.grp summary { cursor: pointer; padding: 11px 16px; display: flex; justify-content: space-between; gap: 12px; font-weight: 600; }
+details.grp summary .cnt { font: 500 12px var(--mono); color: var(--muted); }
+.row { display: grid; grid-template-columns: 22px 1fr; gap: 2px 10px; padding: 9px 16px; border-top: 1px solid var(--line); align-items: start; }
+.row input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--accent); }
+.row label { min-width: 0; overflow-wrap: anywhere; cursor: pointer; }
+.row.done label { text-decoration: line-through; color: var(--muted); }
+.row .meta { grid-column: 2; display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 13px; color: var(--muted); min-width: 0; overflow-wrap: anywhere; }
+a, a:visited { color: var(--accent); }
+.chip { font: 500 12px var(--mono); background: var(--accent-soft); color: var(--accent); padding: 1px 7px; border-radius: 99px; }
+.status { font: 500 12px var(--mono); color: var(--muted); }
+.note-local { font-size: 13px; color: var(--muted); border: 1px dashed var(--line); border-radius: 8px; padding: 8px 12px; margin: 0; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1 id="title">Today</h1>
+    <span class="stamp" id="stamp">loading your board</span>
+  </header>
+
+  <section class="day" aria-label="Today">
+    <div class="panel"><h2>Calls and events</h2><ul id="events"></ul></div>
+    <div class="panel only"><h2>Only you can do</h2><ul id="onlyyou"></ul></div>
+    <div class="panel"><h2>Waiting on</h2><ul id="waiting"></ul></div>
+  </section>
+
+  <section class="todo" aria-label="To-do list">
+    <div class="todo-head">
+      <h2>To-do</h2>
+      <span class="count" id="count"></span>
+    </div>
+    <form class="add" id="add" hidden>
+      <input id="add-text" maxlength="200" placeholder="Add a to-do and press Enter" autocomplete="off" aria-label="New to-do">
+      <button type="submit">Add</button>
+    </form>
+    <p class="note-local" id="local-note" hidden>This is the offline copy of your board. To add or check off items, tell Claude ("check off the lease"), then refresh this page.</p>
+    <div id="list"></div>
+    <div><button class="ghost" id="show-done" type="button" aria-pressed="false">Show done</button> <span class="status" id="sync"></span></div>
+  </section>
+</div>
+
+<!-- Offline mode only: board.py render puts TODAY.json here. Leave it empty in the published artifact. -->
+<script type="application/json" id="board-data">{}</script>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+                  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+  const DAY = 864e5;
+  let showDone = store.get('tb-show-done') === '1';
+  let items = [];          // [{id, text, group, status, done_at, note, link, due, order, created}]
+  let col = null, canWrite = false, loading = false;
+
+  const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = String(text); return n; };
+  const ts = v => { const t = typeof v === 'number' ? v : Date.parse(v || ''); return isNaN(t) ? 0 : t; };
+  const safeUrl = u => (typeof u === 'string' && /^https:\/\//i.test(u)) ? u : '';
+
+  function fillList(ul, rows, make, emptyText) {
+    ul.textContent = '';
+    if (!Array.isArray(rows) || !rows.length) { ul.append(el('li', 'empty', emptyText)); return; }
+    for (const r of rows.slice(0, 12)) ul.append(make(r || {}));
+  }
+
+  function renderToday(t) {
+    t = t || {};
+    if (t.title) $('title').textContent = String(t.title);
+    $('stamp').textContent = t.updated_at ? 'updated ' + new Date(ts(t.updated_at)).toLocaleString([], { weekday: 'short', month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' }) : 'not refreshed yet';
+    fillList($('events'), t.events, r => { const li = el('li', 'ev'); li.append(el('span', 'time', r.time || ''), el('span', null, r.title || '')); if (r.where) { li.append(el('span'), el('span', 'sub', r.where)); } return li; }, 'No calls on the calendar today.');
+    fillList($('onlyyou'), t.only_you, r => { const li = el('li'); li.append(el('span', null, r.text || '')); if (r.why) li.append(el('span', 'sub', r.why)); return li; }, 'Nothing only you can do right now.');
+    fillList($('waiting'), t.waiting, r => { const li = el('li'); li.append(el('span', null, (r.who ? r.who + ': ' : '') + (r.what || ''))); if (r.since) li.append(el('span', 'sub', 'since ' + r.since)); return li; }, 'Not waiting on anyone.');
+  }
+
+  function visible(it) {
+    if (it.status === 'archived') return false;
+    if (it.status !== 'done') return true;
+    return showDone || Date.now() - ts(it.done_at) < DAY;   // done items stay struck through for a day
+  }
+
+  function renderList() {
+    const list = $('list');
+    const rows = items.filter(visible);
+    const open = items.filter(i => i.status !== 'done' && i.status !== 'archived').length;
+    $('count').textContent = open + ' open';
+    const groups = new Map();
+    for (const it of rows) { const g = it.group || 'To-do'; if (!groups.has(g)) groups.set(g, []); groups.get(g).push(it); }
+    list.textContent = '';
+    if (loading) { list.append(el('p', 'empty', 'Loading your list...')); return; }
+    if (!groups.size) { list.append(el('p', 'empty', canWrite ? 'Nothing open. Add one above, or tell Claude "add call the plumber to my board".' : 'Nothing open. Tell Claude what to add.')); return; }
+    const minOrder = g => Math.min(...groups.get(g).map(i => Number(i.order) || 0));
+    const names = [...groups.keys()].sort((a, b) => minOrder(a) - minOrder(b) || a.localeCompare(b));
+    for (const g of names) {
+      const rs = groups.get(g).sort((a, b) => (a.status === 'done') - (b.status === 'done') || (Number(a.order) || 0) - (Number(b.order) || 0) || ts(a.created) - ts(b.created));
+      const det = el('details', 'grp'); const key = 'tb-open-' + g; const saved = store.get(key);
+      det.open = saved === null ? true : saved === '1';
+      det.ontoggle = () => store.set(key, det.open ? '1' : '0');
+      const sum = el('summary'); sum.append(el('span', null, g), el('span', 'cnt', rs.filter(i => i.status !== 'done').length + ' open'));
+      det.append(sum);
+      for (const it of rs) det.append(rowEl(it));
+      list.append(det);
+    }
+  }
+
+  function rowEl(it) {
+    const done = it.status === 'done';
+    const row = el('div', 'row' + (done ? ' done' : ''));
+    const cb = el('input'); cb.type = 'checkbox'; cb.checked = done; cb.disabled = !canWrite || !col;
+    cb.id = 'cb-' + String(it.id).replace(/[^\w-]/g, '_'); cb.setAttribute('aria-label', 'Done: ' + (it.text || ''));
+    cb.onchange = () => {
+      const patch = cb.checked ? { status: 'done', done_at: new Date().toISOString() } : { status: 'open', done_at: null };
+      cb.disabled = true;
+      col.doc(it.id).update(patch)
+        .then(() => { cb.disabled = false; })
+        .catch(e => {
+          cb.checked = !cb.checked; cb.disabled = false;
+          if (e && e.code === 'invalid_argument') { canWrite = false; $('add').hidden = true; $('sync').textContent = 'This board is read-only for you.'; renderList(); return; }
+          $('sync').textContent = 'Could not save that check (' + (e && e.code || 'error') + '). Try again.';
+        });
+    };
+    const lab = el('label', null, it.text || ''); lab.htmlFor = cb.id;
+    row.append(cb, lab);
+    const meta = el('div', 'meta');
+    if (it.due) meta.append(el('span', 'chip', it.due));
+    if (it.note) meta.append(el('span', null, it.note));
+    const url = safeUrl(it.link);
+    if (url) { const a = el('a', null, 'open link'); a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer'; meta.append(a); }
+    if (meta.childNodes.length) row.append(meta);
+    return row;
+  }
+
+  const sd = $('show-done');
+  sd.setAttribute('aria-pressed', showDone); sd.textContent = showDone ? 'Hide done' : 'Show done';
+  sd.onclick = () => { showDone = !showDone; store.set('tb-show-done', showDone ? '1' : '0'); sd.setAttribute('aria-pressed', showDone); sd.textContent = showDone ? 'Hide done' : 'Show done'; renderList(); };
+
+  // Offline mode: data embedded by board.py render. Read-only view.
+  function fromEmbedded() {
+    let data = {};
+    try { data = JSON.parse($('board-data').textContent || '{}'); } catch (e) {}
+    renderToday(data.today || {});
+    items = [];
+    (data.groups || []).forEach((g, gi) => (g.items || []).forEach((it, n) => items.push({ id: it.id || g.name + n, text: it.text, group: g.name, status: it.done ? 'done' : 'open', done_at: it.done_at, note: it.note, link: it.link, due: it.due, order: gi * 1000 + n })));
+    return data;
+  }
+
+  const embedded = fromEmbedded();
+  const hasEmbedded = !!(embedded.groups || embedded.today);
+  renderList();
+
+  const api = window.claude && typeof window.claude.use === 'function' ? window.claude : null;
+  if (!api) { $('local-note').hidden = !hasEmbedded; $('sync').textContent = hasEmbedded ? 'offline copy' : 'Open this board inside Claude to use the live list.'; return; }
+  loading = true; renderList();
+
+  (async () => {
+    const timer = setTimeout(() => { $('sync').textContent = 'Still connecting. Check that you are signed in to Claude.'; }, 10000);
+    const db = await api.use('db');
+    if (!db) { clearTimeout(timer); loading = false; renderList(); $('sync').textContent = 'Open this board inside Claude, signed in, to see and check off your list.'; return; }
+    try { const u = await api.use('user'); const ok = u ? await u.can('data.write') : null; canWrite = ok !== false; } catch (e) { canWrite = true; }
+    $('add').hidden = !canWrite;
+    db.doc('board/today').onSnapshot(s => { renderToday(s.exists ? s.data() : {}); },
+      e => { $('stamp').textContent = 'top section not updating (' + (e && e.code || 'error') + '), reload'; });
+    col = db.collection('todo');
+    col.where('status', '!=', 'archived').onSnapshot(s => {
+      items = s.docs.map(d => Object.assign({}, d.data(), { id: d.id }));
+      loading = false;
+      const cached = s.metadata && s.metadata.fromCache;
+      if (!cached) clearTimeout(timer);
+      $('sync').textContent = cached ? 'saved copy, may be out of date' : 'live, ' + new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+      renderList();
+    }, e => { $('sync').textContent = 'Live updates stopped (' + (e && e.code || 'error') + '). Reload the page.'; });
+    $('add').onsubmit = async ev => {
+      ev.preventDefault();
+      const inp = $('add-text'), text = inp.value.trim(); if (!text) return;
+      inp.value = '';
+      try { await col.add({ text, group: 'Added on the board', status: 'open', done_at: null, note: '', link: '', due: '', order: 0, created: Date.now(), added_by: 'page' }); }
+      catch (e) { $('sync').textContent = 'Could not add that (' + (e && e.code || 'error') + '). Try again.'; inp.value = text; if (e && e.code === 'invalid_argument') { canWrite = false; $('add').hidden = true; renderList(); } }
+    };
+  })();
+})();
+</script>

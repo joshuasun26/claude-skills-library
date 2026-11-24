@@ -1,0 +1,32 @@
+{
+  "date": "2026-01-14",
+  "note": "Fictional example data. Replace it with your own on the first refresh.",
+  "today": {
+    "title": "Today (example)",
+    "updated_at": "2026-01-14T07:45:00-08:00",
+    "events": [
+      {"time": "9:30 AM", "title": "Team standup", "where": "Video call"},
+      {"time": "1:00 PM", "title": "Intro call with Priya (new client)", "where": "Phone"},
+      {"time": "4:15 PM", "title": "Pick up kids", "where": ""}
+    ],
+    "only_you": [
+      {"text": "Sign the office lease renewal", "why": "Landlord needs it by Friday"},
+      {"text": "Pick a date for the spring workshop", "why": "Venue is holding two dates"}
+    ],
+    "waiting": [
+      {"who": "Marcus (contractor)", "what": "Revised quote for the patio", "since": "Mon"},
+      {"who": "Print shop", "what": "Proof for the event flyer", "since": "yesterday"}
+    ]
+  },
+  "groups": [
+    {"name": "Work", "items": [
+      {"id": "ex-1", "text": "Send Priya the welcome packet", "done": false, "done_at": null, "due": "today"},
+      {"id": "ex-2", "text": "Draft the newsletter intro", "done": false, "done_at": null, "note": "Three bullets is enough"},
+      {"id": "ex-3", "text": "Reply to the conference invite", "done": true, "done_at": "2026-01-14T08:10:00-08:00"}
+    ]},
+    {"name": "Home", "items": [
+      {"id": "ex-4", "text": "Book the dentist", "done": false, "done_at": null},
+      {"id": "ex-5", "text": "Renew the car registration", "done": false, "done_at": null, "due": "Jan 31", "link": "https://www.example.com/renew"}
+    ]}
+  ]
+}

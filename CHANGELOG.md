@@ -2,6 +2,15 @@
 
 All notable changes to this library. Dates are when the change landed here.
 
+## 1.2.0 (2026-11-24)
+
+- New `today-board`: a private one-screen Today board (calls, only-you items, waiting-on, to-do list) published as a claude.ai Artifact with checks saved across devices, or a local HTML page offline. Refuses secrets in any field; done items archive after 30 days.
+- New `send-critic`: an independent agent checks an important email or text before it goes out and returns PASS, FIX or HOLD. Helper script scans for private info, banned words, duplicates and text opt-outs (plain list or CSV). A PASS is never permission to send.
+
+## 1.1.0 (2026-11-23)
+
+- New `claude-brain-team`: Claude coordinates a team of other models you already have (Muse by Meta as a free default worker, plus ChatGPT or Codex, Gemini, Grok). Setup interview saves team.json; numbered task files and RESULTs on Slack or a free shared folder; `board.py` refuses to close a task without evidence and keeps private work away from workers not cleared for it. New category: AI teams and delegation.
+
 ## 1.0.2 (2026-11-23)
 
 - `session-refresh` is now the recommended main-session routine (compact in place at about 30%, fresh session daily). `session-handoff-60` is marked older and is no longer a start-here pick.

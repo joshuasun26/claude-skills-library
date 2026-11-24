@@ -1,0 +1,36 @@
+{
+  "high_stakes": [
+    "anything with money, prices, rates or fees",
+    "legal or contract topics",
+    "a first message to someone important to me",
+    "group emails and group texts",
+    "anything to a client about their deal",
+    "anything sent under a standing approval"
+  ],
+  "never_send": [
+    "bank, card, routing or wire numbers",
+    "Social Security or tax ID numbers",
+    "dates of birth",
+    "account or loan numbers",
+    "home addresses of private people",
+    "passwords and one-time codes"
+  ],
+  "banned_words": [
+    "honestly",
+    "to be honest",
+    "I want to be upfront",
+    "I want to be direct",
+    "to be transparent",
+    "just circling back",
+    "per my last email",
+    "I hope this email finds you well",
+    "delve"
+  ],
+  "allow_em_dash": false,
+  "max_exclamations": 1,
+  "allow_emoji": false,
+  "account_digit_run": 8,
+  "optout_file": "~/.claude/send-critic/optouts.txt",
+  "send_log": "~/.claude/send-critic/send-log.jsonl",
+  "dupe_window_days": 14
+}

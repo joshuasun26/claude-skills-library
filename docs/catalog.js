@@ -1,10 +1,14 @@
 window.SKILLS_CATALOG = {
  "repo": "joshuasun26/claude-skills-library",
- "updated": "2026-11-23",
+ "updated": "2026-11-24",
  "categories": [
   {
    "id": "always-on",
    "label": "Always-on and sessions"
+  },
+  {
+   "id": "team",
+   "label": "AI teams and delegation"
   },
   {
    "id": "inbox",
@@ -240,6 +244,34 @@ window.SKILLS_CATALOG = {
    }
   },
   {
+   "name": "today-board",
+   "title": "Today board",
+   "category": "inbox",
+   "start_here": false,
+   "summary": "One private page with today's calls, the few things only you can do, who you are waiting on, and a to-do list whose checks stay put on every device. Claude updates it when you say add X or check off X.",
+   "for": "Anyone who wants one screen to open first thing every morning",
+   "when": "Every morning, after an inbox triage, and whenever you add or finish a to-do.",
+   "needs": [
+    "Claude Code",
+    "A claude.ai account for the private Artifact page, or Python 3.9+ for the local HTML fallback"
+   ],
+   "customize": "Name the board and choose Artifact or Offline mode at setup; the choice is saved in ~/.today-board/config.json.",
+   "conflicts": [],
+   "try": "Use today-board. Make me a Today board, add 'call the inspector' and 'send the CMA', then show me the link.",
+   "files": [
+    "SKILL.md",
+    "examples/TODAY.example.json",
+    "scripts/board.py",
+    "templates/board.html",
+    "tests/test_board.py"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- today-board",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) today-board",
+    "manual": "Copy skills/today-board/ into ~/.claude/skills/today-board/"
+   }
+  },
+  {
    "name": "gauntlet-loop",
    "title": "Gauntlet loop",
    "category": "quality",
@@ -331,6 +363,34 @@ window.SKILLS_CATALOG = {
     "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- carousel-readability",
     "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) carousel-readability",
     "manual": "Copy skills/carousel-readability/ into ~/.claude/skills/carousel-readability/"
+   }
+  },
+  {
+   "name": "send-critic",
+   "title": "Send critic",
+   "category": "quality",
+   "start_here": false,
+   "summary": "A separate agent checks an important email or text before it goes out: answers the latest message, right recipients, facts, attachments, private info, promises, duplicates and text opt-outs. Returns PASS, FIX or HOLD. Never sends.",
+   "for": "Anyone sending money, deal, legal or group messages",
+   "when": "Before any client, partner, group, money, legal or deal message goes out.",
+   "needs": [
+    "Claude Code",
+    "Python 3.9+",
+    "A subagent or second model for the independent read"
+   ],
+   "customize": "Answer the one-time setup (high-stakes list, never-send info, banned words, opt-out list, send log); saved to ~/.claude/send-critic/config.json.",
+   "conflicts": [],
+   "try": "Use send-critic on this reply before I send it. Check the whole thread.",
+   "files": [
+    "SKILL.md",
+    "config/send-critic.example.json",
+    "scripts/send_check.py",
+    "tests/test_send_check.py"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- send-critic",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) send-critic",
+    "manual": "Copy skills/send-critic/ into ~/.claude/skills/send-critic/"
    }
   },
   {
@@ -520,6 +580,34 @@ window.SKILLS_CATALOG = {
     "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- daily-outreach",
     "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) daily-outreach",
     "manual": "Copy skills/daily-outreach/ into ~/.claude/skills/daily-outreach/"
+   }
+  },
+  {
+   "name": "claude-brain-team",
+   "title": "Claude brain team",
+   "category": "team",
+   "start_here": false,
+   "summary": "Claude is the brain and coordinator; any mix of other models you already have (Muse by Meta, ChatGPT or Codex, Gemini, Grok) does the work. Numbered task files, evidence-checked results, and a list so nothing goes quiet.",
+   "for": "Anyone who uses more than one AI app and wants them working as one team",
+   "when": "You want to hand research, drafts or code to other models while Claude plans, routes and checks the work.",
+   "needs": [
+    "Claude Code",
+    "Python 3.9+",
+    "Slack, or a free synced folder (Google Drive, Dropbox or OneDrive)"
+   ],
+   "customize": "Answer the one-time setup interview; Claude saves your tools, privacy limits and routing in team.json in your board folder.",
+   "conflicts": [],
+   "try": "Use claude-brain-team. Run the setup interview, then have Muse research five free tools for my task and check what it brings back.",
+   "files": [
+    "SKILL.md",
+    "scripts/board.py",
+    "team.example.json",
+    "tests/test_board.py"
+   ],
+   "install": {
+    "mac": "curl -fsSL https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.sh | bash -s -- claude-brain-team",
+    "win": "& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joshuasun26/claude-skills-library/main/install.ps1))) claude-brain-team",
+    "manual": "Copy skills/claude-brain-team/ into ~/.claude/skills/claude-brain-team/"
    }
   }
  ]
